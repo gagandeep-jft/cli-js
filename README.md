@@ -2,8 +2,9 @@
 
 ## List of scripts:
 
-- cp (copy command)
 - create (creates new text file)
+- type (read contents of file)
+- cp (copy command)
 - md (make directory recursively)
 - rd (remove directory recursively)
 
