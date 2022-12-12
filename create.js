@@ -1,4 +1,4 @@
-import { appendFileSync } from "fs";
+import { promises as fs } from "fs";
 import { stdin as input, stdout as output } from "process";
 import * as ReadLine from "readline";
 
@@ -13,12 +13,9 @@ const rl = ReadLine.createInterface({ input, output });
 
 rl.question("Write Stuff: [Press CTRL+C to save and exit!]");
 
-rl.on("SIGINT", () => {
+rl.on("SIGINT", async () => {
   console.log("Writing", rl.history.length, "lines in", filename);
-
-  for (let i = rl.history.length - 1; i >= 0; i--) {
-    appendFileSync(filename, rl.history[i] + "\n");
-  }
-  console.log("Success] Content Saved! Exiting...");
+  await fs.appendFile(filename, rl.history.reverse().join("\n"));
+  console.log("[Success] Content Saved! Exiting...");
   process.exit(0);
 });
